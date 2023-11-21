@@ -57,7 +57,6 @@ public class CheckoutSolution {
             List<SpecialOffer> specialOfferList = specialOffers.get(item);
             if (specialOfferList!=null) {
                 for(SpecialOffer offer : specialOfferList){
-                    System.out.println(quantity);
                     Result countTotal = calculateSpecialOfferTotal(quantity,item,offer);
                     total += countTotal.total();
                     quantity-=countTotal.quantity();
@@ -105,4 +104,5 @@ public class CheckoutSolution {
     }
 
 }
+
 
