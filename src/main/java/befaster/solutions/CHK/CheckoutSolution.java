@@ -36,7 +36,7 @@ public class CheckoutSolution {
         specialOffers.put('E', offersE);
 
         List<SpecialOffer> offersF = new ArrayList<>();
-        offersF.add(new SpecialOffer(30, 20, 'F'));
+        offersF.add(new SpecialOffer(3, 20, 'F'));
         specialOffers.put('F', offersF);
     }
 
@@ -111,5 +111,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
