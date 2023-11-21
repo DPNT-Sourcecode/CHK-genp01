@@ -81,6 +81,10 @@ public class CheckoutSolution {
     }
 
     private Integer calculateSpecialOfferTotal(int count,char sku, SpecialOffer specialOffer){
+        if(specialOffer.freeItem() != ' '){
+            return  count * prices.get(sku);
+        }
+
         int specialOfferQty = specialOffer.quantity();
         int specialOfferPrice = specialOffer.price();
         int specialOfferCount = count / specialOfferQty;
@@ -98,5 +102,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
