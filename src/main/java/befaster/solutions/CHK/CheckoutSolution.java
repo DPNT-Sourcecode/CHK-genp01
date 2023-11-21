@@ -3,6 +3,9 @@ package befaster.solutions.CHK;
 import befaster.runner.SolutionNotImplementedException;
 
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class CheckoutSolution {
@@ -11,33 +14,48 @@ public class CheckoutSolution {
     private static final Map<Character,List<SpecialOffer>> specialOffers = new HashMap<>();
 
     static {
-        //initiate prices
-        prices.put('A',50);
-        prices.put('B',30);
-        prices.put('C',20);
-        prices.put('D',15);
-        prices.put('E',40);
-        prices.put('F',10);
+        loadPriceTableAndOffersFromFile("src/main/java/test/Items.txt");
+    }
 
-        //put specialoffers
-        // Initialize special offers
-        List<SpecialOffer> offersA = new ArrayList<>();
+    private static void loadPriceTableAndOffersFromFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Item") || line.contains("+") ) {
+                    continue; // Skip header and separator lines
+                }
+                String[] columns = line.split("\\|");
+                char item = columns[1].trim().charAt(0);
+                int price = Integer.parseInt(columns[2].trim());
+                prices.put(item, price);
 
-        offersA.add(new SpecialOffer(5, 200,' '));
-        offersA.add(new SpecialOffer(3, 130,' '));
-        specialOffers.put('A', offersA);
+                String[] offers = columns[3].trim().split(",");
 
-        List<SpecialOffer> offersB = new ArrayList<>();
-        offersB.add(new SpecialOffer(2, 45,' '));
-        specialOffers.put('B', offersB);
-
-        List<SpecialOffer> offersE = new ArrayList<>();
-        offersE.add(new SpecialOffer(2, 0, 'B'));
-        specialOffers.put('E', offersE);
-
-        List<SpecialOffer> offersF = new ArrayList<>();
-        offersF.add(new SpecialOffer(3, 20, 'F'));
-        specialOffers.put('F', offersF);
+                List<SpecialOffer> offerList = new ArrayList<>();
+                for (String offer : offers) {
+                    String[] offerParts = offer.trim().split(" ");
+                    if (offerParts.length == 3) {
+                        int offerQuantity = Integer.parseInt(String.valueOf(offerParts[0].toCharArray()[0]));
+                        int offerPrice = Integer.parseInt(offerParts[2]);
+                        char freeItem = ' ';
+                        offerList.add(new SpecialOffer(offerQuantity, offerPrice, freeItem));
+                    }
+                    if (offerParts.length == 5) {
+                        int offerQuantity = Integer.parseInt(String.valueOf(offerParts[0].charAt(0)));
+                        int offerPrice = 0;
+                        char freeItem =  offerParts[3].charAt(0);
+                        if(freeItem == item){
+                            offerPrice = offerQuantity * prices.get(item);
+                            offerQuantity++;
+                        }
+                        offerList.add(new SpecialOffer(offerQuantity, offerPrice, freeItem));
+                    }
+                }
+                specialOffers.put(item, offerList);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
