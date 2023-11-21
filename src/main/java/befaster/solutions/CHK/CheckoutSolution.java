@@ -57,7 +57,7 @@ public class CheckoutSolution {
             if (specialOfferList!=null) {
                 SpecialOffer bestDeal = specialOfferList.get(0);
                 for(SpecialOffer offer : specialOfferList){
-                    if( offer.quantity() <= quantity && quantity > bestDeal.quantity()){
+                    if( offer.quantity() <= quantity && offer.quantity() > bestDeal.quantity()){
                         bestDeal = offer;
                     }
                 }
@@ -102,6 +102,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
