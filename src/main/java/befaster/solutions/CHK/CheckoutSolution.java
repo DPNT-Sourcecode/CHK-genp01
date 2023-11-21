@@ -18,8 +18,10 @@ public class CheckoutSolution {
         prices.put('E',40);
 
         //put specialoffers
-        specialOffers.put('A',new SpecialOffer(3,130));
-        specialOffers.put('B',new SpecialOffer(2,45));
+        specialOffers.put('A',new SpecialOffer(3,130,' '));
+        specialOffers.put('A',new SpecialOffer(5,200,' '));
+        specialOffers.put('B',new SpecialOffer(2,45,' '));
+        specialOffers.put('E',new SpecialOffer(2,0,'B'));
     }
 
 
@@ -51,6 +53,10 @@ public class CheckoutSolution {
         return total;
     }
 
+    private void getFreeItem(Map<Character,Integer> skuCount){
+        
+    }
+
     private Boolean isInputValid(String skus){
         for(char sku : skus.toCharArray()) {
             if(!prices.containsKey(sku)) {
@@ -71,6 +77,7 @@ public class CheckoutSolution {
 
 
 }
+
 
 
 
