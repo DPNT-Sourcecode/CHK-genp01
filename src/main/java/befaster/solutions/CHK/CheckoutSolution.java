@@ -2,6 +2,7 @@ package befaster.solutions.CHK;
 
 import befaster.runner.SolutionNotImplementedException;
 
+import javax.swing.*;
 import java.util.*;
 
 public class CheckoutSolution {
@@ -55,12 +56,7 @@ public class CheckoutSolution {
 
             List<SpecialOffer> specialOfferList = specialOffers.get(item);
             if (specialOfferList!=null) {
-                SpecialOffer bestDeal = specialOfferList.get(0);
-                for(SpecialOffer offer : specialOfferList){
-                    if( offer.quantity() <= quantity && offer.quantity() > bestDeal.quantity()){
-                        bestDeal = offer;
-                    }
-                }
+
                 total += calculateSpecialOfferTotal(quantity,item,bestDeal);
             }
             else {
@@ -80,17 +76,36 @@ public class CheckoutSolution {
         return true;
     }
 
-    private Integer calculateSpecialOfferTotal(int count,char sku, SpecialOffer specialOffer){
-        if(specialOffer.freeItem() != ' '){
+    private Integer calculateSpecialOfferTotal(int count,char sku, List<SpecialOffer> specialOffer){
+        if(sku == 'E'){
             return  count * prices.get(sku);
         }
+        List<SpecialOffer> temporarySpecialOrder = List.copyOf(specialOffer);
 
-        int specialOfferQty = specialOffer.quantity();
-        int specialOfferPrice = specialOffer.price();
-        int specialOfferCount = count / specialOfferQty;
-        int remaingItems = count % specialOfferQty;
+        int total = 0;
+        while (count > 0){
+            SpecialOffer specialOffer = getBestDeal(count,temporarySpecialOrder);
+            int specialOfferQty = specialOffer.quantity();
+            int specialOfferPrice = specialOffer.price();
+            int specialOfferCount = count / specialOfferQty;
+            int remaingItems = count % specialOfferQty;
+            count -= remaingItems;
+            total += (specialOfferCount * specialOfferPrice) *
 
-        return (specialOfferCount * specialOfferPrice) + (remaingItems * prices.get(sku));
+        }
+
+        return total;
+    }
+
+    private SpecialOffer getBestDeal(int quantity,List<SpecialOffer> specialOffers){
+        SpecialOffer bestDeal = specialOffers.get(0);
+        for(SpecialOffer offer : specialOffers){
+            if( offer.quantity() <= quantity && offer.quantity() > bestDeal.quantity()){
+                bestDeal = offer;
+            }
+        }
+        specialOffers.remove(bestDeal);
+        return bestDeal;
     }
 
     private void applyFreeItem(Map<Character,Integer> skuCount){
@@ -102,6 +117,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
