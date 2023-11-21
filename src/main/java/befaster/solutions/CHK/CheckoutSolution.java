@@ -44,15 +44,24 @@ public class CheckoutSolution {
             skuCount.put(sku ,skuCount.getOrDefault(sku,0) + 1);
         }
 
+        applyFreeItem(skuCount);
+
+
         int total = 0;
         for(Map.Entry<Character,Integer> entry : skuCount.entrySet()){
             char item = entry.getKey();
             int quantity = entry.getValue();
             int price = prices.get(item);
 
-            SpecialOffer specialOffer = specialOffers.get(item);
-            if (specialOffer!=null) {
-                total += calculateSpecialOfferTotal(quantity,item,specialOffer);
+            List<SpecialOffer> specialOfferList = specialOffers.get(item);
+            if (specialOfferList!=null) {
+                SpecialOffer bestDeal = specialOfferList.get(0);
+                for(SpecialOffer offer : specialOfferList){
+                    if(offer.quantity() > bestDeal.quantity()){
+                        bestDeal = offer;
+                    }
+                }
+                total += calculateSpecialOfferTotal(quantity,item,bestDeal);
             }
             else {
                 total+= quantity*price;
@@ -80,13 +89,9 @@ public class CheckoutSolution {
         return (specialOfferCount * specialOfferPrice) + (remaingItems * prices.get(sku));
     }
 
+    private void applyFreeItem(Map<Character,Integer> skuCount){
+        int Ecount = skuCount.getOrDefault('E',0);
+        
+    }
 
 }
-
-
-
-
-
-
-
-
