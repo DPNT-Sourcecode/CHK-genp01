@@ -13,14 +13,35 @@ public class CheckoutSolution {
     private static final Map<Character,SpecialOffer> specialOffers = new HashMap<>();
 
     static {
-        
+        //initiate prices
+        prices.put('A',50);
+        prices.put('B',30);
+        prices.put('C',20);
+        prices.put('D',15);
+
+        //put specialoffers
+        specialOffers.put('A',new SpecialOffer(3,130));
+        specialOffers.put('B',new SpecialOffer(2,45));
     }
 
 
     public Integer checkout(String skus) {
+        if (skus==null || !isInputValid(skus)){
+            return -1;
+        }
+        
         System.out.println(skus);
         List<String> skuList = Arrays.stream(skus.split(",")).toList();
         return skuList.stream().mapToInt(p -> getProductPrice(skus)).sum();
+    }
+
+    private Boolean isInputValid(String skus){
+        for(char sku : skus.toCharArray()) {
+            if(!prices.containsKey(sku)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private Integer getProductPrice(String sku){
@@ -44,6 +65,7 @@ public class CheckoutSolution {
 
 
 }
+
 
 
 
