@@ -7,7 +7,7 @@ import java.util.*;
 public class CheckoutSolution {
 
     private static final Map<Character,Integer> prices = new HashMap<>();
-    private static final Map<Character,SpecialOffer> specialOffers = new HashMap<>();
+    private static final Map<Character,List<SpecialOffer>> specialOffers = new HashMap<>();
 
     static {
         //initiate prices
@@ -20,12 +20,12 @@ public class CheckoutSolution {
         //put specialoffers
         // Initialize special offers
         List<SpecialOffer> offersA = new ArrayList<>();
-        offersA.add(new SpecialOffer(3, 130));
-        offersA.add(new SpecialOffer(5, 200));
+        offersA.add(new SpecialOffer(3, 130,' '));
+        offersA.add(new SpecialOffer(5, 200,' '));
         specialOffers.put('A', offersA);
 
         List<SpecialOffer> offersB = new ArrayList<>();
-        offersB.add(new SpecialOffer(2, 45));
+        offersB.add(new SpecialOffer(2, 45,' '));
         specialOffers.put('B', offersB);
 
         List<SpecialOffer> offersE = new ArrayList<>();
@@ -82,6 +82,7 @@ public class CheckoutSolution {
 
 
 }
+
 
 
 
