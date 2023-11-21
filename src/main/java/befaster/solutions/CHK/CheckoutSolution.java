@@ -59,7 +59,7 @@ public class CheckoutSolution {
                 for(SpecialOffer offer : specialOfferList){
                     Result countTotal = calculateSpecialOfferTotal(quantity,item,offer);
                     total += countTotal.total();
-                    quantity-=countTotal.quantity();
+                    quantity=countTotal.quantity();
                 }
                 total += quantity * prices.get(item);
             }
@@ -85,13 +85,15 @@ public class CheckoutSolution {
             return new Result(0,count*prices.get('E'));
         }
 
-        int specialOfferQty = specialOffer.quantity();
-        int specialOfferPrice = specialOffer.price();
-        int specialOfferCount = count / specialOfferQty;
-        int remaingItems = count % specialOfferQty;
-        count-=remaingItems;
+        if(count>=specialOffer.quantity()){
+            int specialOfferQty = specialOffer.quantity();
+            int specialOfferPrice = specialOffer.price();
+            int specialOfferCount = count / specialOfferQty;
+            int remaingItems = count % specialOfferQty;
 
-        return new Result(count,specialOfferCount*specialOfferPrice);
+            return new Result(remaingItems,specialOfferCount*specialOfferPrice);
+        }
+        return new Result(count,0);
     }
 
 
@@ -104,5 +106,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
