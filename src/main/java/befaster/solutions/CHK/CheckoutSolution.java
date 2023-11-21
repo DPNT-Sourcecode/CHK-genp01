@@ -36,7 +36,7 @@ public class CheckoutSolution {
         specialOffers.put('E', offersE);
 
         List<SpecialOffer> offersF = new ArrayList<>();
-        offersF.add(new SpecialOffer(2, 0, 'F'));
+        offersF.add(new SpecialOffer(30, 20, 'F'));
         specialOffers.put('F', offersF);
     }
 
@@ -52,7 +52,6 @@ public class CheckoutSolution {
         }
 
         applyEFreeItem(skuCount);
-        applyFFreeItem(skuCount);
 
         int total = 0;
         for(Map.Entry<Character,Integer> entry : skuCount.entrySet()){
@@ -110,15 +109,7 @@ public class CheckoutSolution {
             skuCount.put('B',skuCount.get('B')-freeB);
         }
     }
-    private void applyFFreeItem(Map<Character,Integer> skuCount){
-        int Fcount = skuCount.getOrDefault('F',0);
-        if(Fcount%3==0){
-            int freeF = Fcount / 2;
-            if(skuCount.containsKey('B')){
-                skuCount.put('B',skuCount.get('F')-freeF);
-            }
-        }
-    }
 
 }
+
 
