@@ -2,8 +2,16 @@ package befaster.solutions.CHK;
 
 import befaster.runner.SolutionNotImplementedException;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CheckoutSolution {
     public Integer checkout(String skus) {
-        throw new SolutionNotImplementedException();
+        System.out.println(skus);
+        List<String> skuList = Arrays.stream(skus.split(",")).toList();
+        skuList.stream().mapToInt(e -> ).o;
     }
+
+
 }
+
