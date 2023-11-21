@@ -1,5 +1,9 @@
 package befaster.solutions.CHK;
 
-public record SpecialOffer(int quantity, int price, char freeItem) {
+public class SpecialOffer {
+    int quantity;
+    int price;
+    char freeItem;
 }
+
 
