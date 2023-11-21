@@ -2,10 +2,7 @@ package befaster.solutions.CHK;
 
 import befaster.runner.SolutionNotImplementedException;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CheckoutSolution {
 
@@ -29,8 +26,14 @@ public class CheckoutSolution {
         if (skus==null || !isInputValid(skus)){
             return -1;
         }
+
         Map<Character,Integer> skuCount = new HashMap<>();
-        Arrays.stream(
+        for(char sku : skus.toCharArray()){
+            skuCount.put(sku ,skuCount.getOrDefault(sku,0) + 1);
+        }
+
+        
+
         List<String> skuList = Arrays.stream(skus.split(",")).toList();
         return skuList.stream().mapToInt(p -> getProductPrice(skus)).sum();
     }
@@ -65,3 +68,4 @@ public class CheckoutSolution {
 
 
 }
+
