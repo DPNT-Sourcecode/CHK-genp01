@@ -112,11 +112,13 @@ public class CheckoutSolution {
     }
     private void applyFFreeItem(Map<Character,Integer> skuCount){
         int Fcount = skuCount.getOrDefault('F',0);
-        if(Fcount)
-        int freeB = Ecount / 2;
-        if(skuCount.containsKey('B')){
-            skuCount.put('B',skuCount.get('B')-freeB);
+        if(Fcount%3==0){
+            int freeF = Fcount / 2;
+            if(skuCount.containsKey('B')){
+                skuCount.put('B',skuCount.get('F')-freeF);
+            }
         }
     }
 
 }
+
