@@ -17,6 +17,7 @@ public class CheckoutSolution {
         prices.put('C',20);
         prices.put('D',15);
         prices.put('E',40);
+        prices.put('F',10);
 
         //put specialoffers
         // Initialize special offers
@@ -33,6 +34,10 @@ public class CheckoutSolution {
         List<SpecialOffer> offersE = new ArrayList<>();
         offersE.add(new SpecialOffer(2, 0, 'B'));
         specialOffers.put('E', offersE);
+
+        List<SpecialOffer> offersF = new ArrayList<>();
+        offersF.add(new SpecialOffer(2, 0, 'F'));
+        specialOffers.put('F', offersF);
     }
 
 
@@ -46,8 +51,8 @@ public class CheckoutSolution {
             skuCount.put(sku ,skuCount.getOrDefault(sku,0) + 1);
         }
 
-        applyFreeItem(skuCount);
-
+        applyEFreeItem(skuCount);
+        applyFFreeItem(skuCount);
 
         int total = 0;
         for(Map.Entry<Character,Integer> entry : skuCount.entrySet()){
@@ -98,8 +103,16 @@ public class CheckoutSolution {
     }
 
 
-    private void applyFreeItem(Map<Character,Integer> skuCount){
+    private void applyEFreeItem(Map<Character,Integer> skuCount){
         int Ecount = skuCount.getOrDefault('E',0);
+        int freeB = Ecount / 2;
+        if(skuCount.containsKey('B')){
+            skuCount.put('B',skuCount.get('B')-freeB);
+        }
+    }
+    private void applyFFreeItem(Map<Character,Integer> skuCount){
+        int Fcount = skuCount.getOrDefault('F',0);
+        if(Fcount)
         int freeB = Ecount / 2;
         if(skuCount.containsKey('B')){
             skuCount.put('B',skuCount.get('B')-freeB);
@@ -107,7 +120,3 @@ public class CheckoutSolution {
     }
 
 }
-
-
-
-
