@@ -56,8 +56,9 @@ public class CheckoutSolution {
 
             List<SpecialOffer> specialOfferList = specialOffers.get(item);
             if (specialOfferList!=null) {
-
-                total += calculateSpecialOfferTotal(quantity,item,bestDeal);
+                for(SpecialOffer offer : specialOfferList){
+                    total += calculateSpecialOfferTotal(quantity,item,offer);
+                }
             }
             else {
                 total+= quantity*price;
@@ -76,37 +77,20 @@ public class CheckoutSolution {
         return true;
     }
 
-    private Integer calculateSpecialOfferTotal(int count,char sku, List<SpecialOffer> specialOffer){
+    private Integer calculateSpecialOfferTotal(int count,char sku, SpecialOffer specialOffer){
         if(sku == 'E'){
             return  count * prices.get(sku);
         }
-        int total = 0;
-        while (count > 0){
-            SpecialOffer special = getBestDeal(count,specialOffer);
 
-            int specialOfferQty = special.quantity();
-            int specialOfferPrice = special.price();
-            int specialOfferCount = count / specialOfferQty;
-            int remaingItems = count % specialOfferQty;
-            
-            count -= remaingItems;
-            total += (specialOfferCount * specialOfferPrice);
+        int specialOfferQty = specialOffer.quantity();
+        int specialOfferPrice = specialOffer.price();
+        int specialOfferCount = count / specialOfferQty;
+        int remaingItems = count % specialOfferQty;
+        count-=remaingItems;
 
-        }
-
-        return total;
+        return (specialOfferCount * specialOfferPrice);
     }
 
-    private SpecialOffer getBestDeal(int quantity,List<SpecialOffer> specialOffers){
-        SpecialOffer bestDeal = specialOffers.get(0);
-        for(SpecialOffer offer : specialOffers){
-            if( offer.quantity() <= quantity && offer.quantity() > bestDeal.quantity()){
-                bestDeal = offer;
-            }
-        }
-
-        return bestDeal;
-    }
 
     private void applyFreeItem(Map<Character,Integer> skuCount){
         int Ecount = skuCount.getOrDefault('E',0);
@@ -117,9 +101,3 @@ public class CheckoutSolution {
     }
 
 }
-
-
-
-
-
-
