@@ -14,7 +14,7 @@ public class CheckoutSolution {
     private static final Map<Character,List<SpecialOffer>> specialOffers = new HashMap<>();
 
     static {
-        loadPriceTableAndOffersFromFile("src/main/java/test/Items.txt");
+        loadPriceTableAndOffersFromFile("src/main/java/befaster/solutions/CHK/items.txt");
     }
 
     private static void loadPriceTableAndOffersFromFile(String filePath) {
@@ -104,8 +104,8 @@ public class CheckoutSolution {
     }
 
     private Result calculateSpecialOfferTotal(int count,char sku, SpecialOffer specialOffer){
-        if(sku == 'E'){
-            return new Result(0,count*prices.get('E'));
+        if(sku == 'E' || sku == 'N' || sku == 'R'){
+            return new Result(0,count*prices.get(sku));
         }
 
         if(count>=specialOffer.quantity()){
@@ -129,3 +129,4 @@ public class CheckoutSolution {
     }
 
 }
+
