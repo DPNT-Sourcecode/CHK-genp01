@@ -80,17 +80,17 @@ public class CheckoutSolution {
         if(sku == 'E'){
             return  count * prices.get(sku);
         }
-        List<SpecialOffer> temporarySpecialOrder = List.copyOf(specialOffer);
-
         int total = 0;
         while (count > 0){
-            SpecialOffer specialOffer = getBestDeal(count,temporarySpecialOrder);
-            int specialOfferQty = specialOffer.quantity();
-            int specialOfferPrice = specialOffer.price();
+            SpecialOffer special = getBestDeal(count,specialOffer);
+
+            int specialOfferQty = special.quantity();
+            int specialOfferPrice = special.price();
             int specialOfferCount = count / specialOfferQty;
             int remaingItems = count % specialOfferQty;
+            
             count -= remaingItems;
-            total += (specialOfferCount * specialOfferPrice) *
+            total += (specialOfferCount * specialOfferPrice);
 
         }
 
@@ -104,7 +104,7 @@ public class CheckoutSolution {
                 bestDeal = offer;
             }
         }
-        specialOffers.remove(bestDeal);
+
         return bestDeal;
     }
 
@@ -117,6 +117,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
