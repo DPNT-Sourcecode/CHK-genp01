@@ -29,8 +29,8 @@ public class CheckoutSolution {
         if (skus==null || !isInputValid(skus)){
             return -1;
         }
-        
-        System.out.println(skus);
+        Map<Character,Integer> skuCount = new HashMap<>();
+        Arrays.stream(
         List<String> skuList = Arrays.stream(skus.split(",")).toList();
         return skuList.stream().mapToInt(p -> getProductPrice(skus)).sum();
     }
@@ -65,7 +65,3 @@ public class CheckoutSolution {
 
 
 }
-
-
-
-
