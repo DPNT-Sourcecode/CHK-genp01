@@ -8,8 +8,9 @@ import java.util.ArrayList;
 public class ArraySumSolution {
 
     public int compute(ArrayList<Integer> intArray) {
-        return intArray.stream().mapToInt(p -> p).sum();
+        return intArray.stream().mapToInt(Integer::intValue).sum();
     }
 
 }
+
 
