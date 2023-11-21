@@ -91,7 +91,11 @@ public class CheckoutSolution {
 
     private void applyFreeItem(Map<Character,Integer> skuCount){
         int Ecount = skuCount.getOrDefault('E',0);
-        
+        int freeB = Ecount / 2;
+        if(skuCount.containsKey('B')){
+            skuCount.put('B',skuCount.get('B')-freeB);
+        }
     }
 
 }
+
