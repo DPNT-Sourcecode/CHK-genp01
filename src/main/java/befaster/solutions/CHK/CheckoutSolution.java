@@ -32,7 +32,19 @@ public class CheckoutSolution {
             skuCount.put(sku ,skuCount.getOrDefault(sku,0) + 1);
         }
 
-        
+        int total = 0;
+        for(Map.Entry(Character,Integer) entry : )
+        skuCount.forEach((k,v) -> {
+            char item = k;
+            int quantity = v;
+            int price = prices.get(item);
+
+            SpecialOffer specialOffer = specialOffers.get(item);
+            if (specialOffer!=null) {
+                total += 0;
+            }
+
+        });
 
         List<String> skuList = Arrays.stream(skus.split(",")).toList();
         return skuList.stream().mapToInt(p -> getProductPrice(skus)).sum();
@@ -68,4 +80,5 @@ public class CheckoutSolution {
 
 
 }
+
 
