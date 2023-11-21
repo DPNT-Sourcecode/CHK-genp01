@@ -57,8 +57,12 @@ public class CheckoutSolution {
             List<SpecialOffer> specialOfferList = specialOffers.get(item);
             if (specialOfferList!=null) {
                 for(SpecialOffer offer : specialOfferList){
-                    total += calculateSpecialOfferTotal(quantity,item,offer);
+                    System.out.println(quantity);
+                    Result countTotal = calculateSpecialOfferTotal(quantity,item,offer);
+                    total += countTotal.total();
+                    quantity-=countTotal.quantity();
                 }
+                total += quantity * prices.get(item);
             }
             else {
                 total+= quantity*price;
@@ -77,9 +81,9 @@ public class CheckoutSolution {
         return true;
     }
 
-    private Integer calculateSpecialOfferTotal(int count,char sku, SpecialOffer specialOffer){
+    private Result calculateSpecialOfferTotal(int count,char sku, SpecialOffer specialOffer){
         if(sku == 'E'){
-            return  count * prices.get(sku);
+            return new Result(0,count*prices.get('E'));
         }
 
         int specialOfferQty = specialOffer.quantity();
@@ -88,7 +92,7 @@ public class CheckoutSolution {
         int remaingItems = count % specialOfferQty;
         count-=remaingItems;
 
-        return (specialOfferCount * specialOfferPrice);
+        return new Result(count,specialOfferCount*specialOfferPrice);
     }
 
 
@@ -101,3 +105,4 @@ public class CheckoutSolution {
     }
 
 }
+
