@@ -33,21 +33,21 @@ public class CheckoutSolution {
         }
 
         int total = 0;
-        for(Map.Entry(Character,Integer) entry : )
-        skuCount.forEach((k,v) -> {
-            char item = k;
-            int quantity = v;
+        for(Map.Entry<Character,Integer> entry : skuCount.entrySet()){
+            char item = entry.getKey();
+            int quantity = entry.getValue();
             int price = prices.get(item);
 
             SpecialOffer specialOffer = specialOffers.get(item);
             if (specialOffer!=null) {
                 total += 0;
             }
+            else {
+                total+= quantity*price;
+            }
+        }
 
-        });
-
-        List<String> skuList = Arrays.stream(skus.split(",")).toList();
-        return skuList.stream().mapToInt(p -> getProductPrice(skus)).sum();
+        return total;
     }
 
     private Boolean isInputValid(String skus){
@@ -59,26 +59,18 @@ public class CheckoutSolution {
         return true;
     }
 
-    private Integer getProductPrice(String sku){
-        switch (sku){
-            case "A":
-                return 50;
-            case "B":
-                return 30;
-            case "C":
-                return 20;
-            case "D":
-                return 15;
-            case "3A":
-                return 130;
-            case "2B":
-                return 45;
-            default:
-                return -1;
-        }
+    private Integer calculateSpecialOfferTotal(int count, SpecialOffer specialOffer){
+        int total = 0;
+        int specialOfferQty = specialOffer.quantity();
+        int specialOfferPrice = specialOffer.price();
+        int specialOfferCount = count / specialOfferQty;
+        int remaingItems = 
+
+        return total;
     }
 
 
 }
+
 
 
